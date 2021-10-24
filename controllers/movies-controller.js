@@ -21,6 +21,7 @@ exports.find = async (ctx) => {
   
   if (error) {
     ctx.body = { error: ERROR_DATA };
+    ctx.status = 422;
     logger.info({ error: ERROR_DATA });
     return ctx;
   }
@@ -36,6 +37,7 @@ exports.find = async (ctx) => {
 
   if (movieAPI === REQUEST_API_ERROR || movieAPI === MOVIE_NOT_FOUND) {
     ctx.body = { error: movieAPI };
+    ctx.status = movieAPI === REQUEST_API_ERROR ? 400 : 404;
     logger.info({ error: movieAPI });
     return ctx;
   }
@@ -44,6 +46,7 @@ exports.find = async (ctx) => {
   
   if (movie === ERROR_CREATING_MOVIE) {
     ctx.body = { error: ERROR_CREATING_MOVIE };
+    ctx.status = 500;
     logger.info({ error: ERROR_CREATING_MOVIE });
     return ctx;
   }
@@ -57,6 +60,7 @@ exports.findAll = async (ctx) => {
   
   if (error) {
     ctx.body = { error: ERROR_DATA };
+    ctx.status = 422;
     logger.info({ error: ERROR_DATA });
     return ctx;
   }
@@ -70,6 +74,7 @@ exports.replace = async (ctx) => {
   
   if (error) {
     ctx.body = { error: ERROR_DATA };
+    ctx.status = 422;
     logger.info({ error: ERROR_DATA });
     return ctx;
   }
@@ -78,6 +83,7 @@ exports.replace = async (ctx) => {
   
   if (!movie) {
     ctx.body = { error: MOVIE_NOT_FOUND };
+    ctx.status = 404;
     logger.info({ error: MOVIE_NOT_FOUND });
     return ctx;
   }
