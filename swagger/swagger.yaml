@@ -61,8 +61,10 @@ paths:
                       schema:
                         type: object
                         properties:
-                            Source: string
-                            Value: string
+                            Source:
+                              type: string
+                            Value:
+                              type: string
         "400":
           description: When external API return an error
           content:
