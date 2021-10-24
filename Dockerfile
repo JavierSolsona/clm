@@ -4,9 +4,11 @@ ARG USER=node
 RUN chown -R ${USER}:${USER} /app
 
 USER ${USER}
-COPY . .
+COPY ./package.json ./
 
 RUN npm install
 RUN npm audit fix
+
+COPY . .
 
 CMD [ "npm", "start"]
