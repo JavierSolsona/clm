@@ -1,0 +1,94 @@
+openapi: 3.0.0
+info:
+  title: CLM development challenge
+  description: "<b>Description:</b> This is the API documentation for the solution of the CLM development challenge by Javier Solsona."
+  version: "1.0"
+  contact:
+    name:  Javier Solsona
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: Movies
+paths:
+  /api/movies/find/{movieTitle}:
+    get:
+      tags:
+        - Movies 
+      summary: Returns a movie stored in the Data Base.
+      description: Receive a name in the URL and an optional year as parameter in header. If the movie is not found it's searched in an external API and stored in the local Data Base.
+      operationId: Find a Movie
+      parameters:
+        - name: movieTitle
+          in: path
+          description: Movie Title
+          required: true
+          schema:
+            type: string
+            example: star%20wars
+        - name: year
+          in: header
+          description: Movie year
+          required: false
+          schema:
+            type: string
+            example: 1977
+      responses:
+        "200":
+          description: When a movie is finded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Title:
+                    type: string
+                  Year:
+                    type: string
+                  Released:
+                    type: string
+                  Gnere:
+                    type: string
+                  Director:
+                    type: string
+                  Actors:
+                    type: string
+                  Pot:
+                    type: string
+                  Ratings:
+                    type: array
+                    items:
+                      Source: string
+                      Value: string
+        "400":
+          description: When external API return an error
+          content:
+            application/json:
+              type: object
+              properties:
+                error:
+                  type: string
+        "404":
+          description: When movie is not found
+          content:
+            application/json:
+              type: object
+              properties:
+                error:
+                  type: string
+        "422":
+          description: Error in data validation
+          content:
+            application/json:
+              type: object
+              properties:
+                error:
+                  type: string
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              type: object
+              properties:
+                error:
+                  type: string
