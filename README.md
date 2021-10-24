@@ -27,6 +27,7 @@ $ docker-compose up -d
 
 ```sh
 $ curl --location --request GET 'http://localhost:8080/api/movies/find/{title}'
+--header 'year: {year}'
 
 $ curl --location --request GET 'http://localhost:8080/api/movies/find-all' \
 --header 'index: {value}'
@@ -40,11 +41,14 @@ $ curl --location --request POST 'http://localhost:8080/api/movies/replace' \
 }'
 ```
 
+Note: The year header in th efind endpoint is optional.
+
 Examples:
 
 
 ```sh
-$ curl --location --request GET 'http://localhost:8080/api/movies/find/star%20wars'
+$ curl --location --request GET 'http://localhost:8080/api/movies/find/star%20wars' \
+--header 'year: 1977'
 
 $ curl --location --request GET 'http://localhost:8080/api/movies/find-all' \
 --header 'index: 0'
