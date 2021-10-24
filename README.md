@@ -10,7 +10,8 @@ Solution to CLM development challenge by Javier Solsona.
 * docker-compose >= 2.0.1
 * node >= 16.0.0
 * npm >= 7.10.0 
-* Available ports 8080, 8081
+* mogo >= 4.4.X 
+* Available ports 8080, 8081, 27017
 
 In the 8080 port the app will be running and in the 8081 a web viewer for the mongodb data.
 
@@ -41,7 +42,7 @@ $ curl --location --request POST 'http://localhost:8080/api/movies/replace' \
 }'
 ```
 
-Note: The year header in th efind endpoint is optional.
+Note: The year header in the find endpoint is optional.
 
 Examples:
 
