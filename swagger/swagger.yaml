@@ -58,13 +58,12 @@ paths:
                   Ratings:
                     type: array
                     items:
-                      schema:
-                        type: object
-                        properties:
-                            Source:
-                              type: string
-                            Value:
-                              type: string
+                      type: object
+                      properties:
+                          Source:
+                            type: string
+                          Value:
+                            type: string
         "400":
           description: When external API return an error
           content:
@@ -94,6 +93,115 @@ paths:
                     type: string
         "500":
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/movies/find-all:
+    get:
+      tags:
+        - Movies 
+      summary: Returns all movies paginated.
+      description: Receive in the header the page to show.
+      operationId: Find all movies paginates.
+      parameters:
+        - name: index
+          in: header
+          description: Page
+          required: true
+          schema:
+            type: number
+            example: 0
+      responses:
+        "200":
+          description: List of movies
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  movie:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                          Title:
+                            type: string
+                          Year:
+                            type: string
+                          Released:
+                            type: string
+                          Gnere:
+                            type: string
+                          Director:
+                            type: string
+                          Actors:
+                            type: string
+                          Pot:
+                            type: string
+                          Ratings:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                  Source:
+                                    type: string
+                                  Value:
+                                    type: string
+        "422":
+          description: Error in data validation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /api/movies/replace:
+    post:
+      tags:
+        - Movies 
+      summary: Returns a plot with text replaced.
+      description: Receive in the body the movie to replace, the word to replace and the replace word.
+      operationId: Replace a movie plot
+      requestBody:
+        description: Json with variables
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                movie:
+                  type: string
+                find:
+                  type: string
+                replace:
+                  type: string
+      responses:
+        "200":
+          description: Plot with replaced text.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  plot:
+                    type: string
+        "404":
+          description: When movie is not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "422":
+          description: Error in data validation
           content:
             application/json:
               schema:
