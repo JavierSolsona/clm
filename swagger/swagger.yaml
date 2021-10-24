@@ -58,37 +58,44 @@ paths:
                   Ratings:
                     type: array
                     items:
-                      Source: string
-                      Value: string
+                      schema:
+                        type: object
+                        properties:
+                            Source: string
+                            Value: string
         "400":
           description: When external API return an error
           content:
             application/json:
-              type: object
-              properties:
-                error:
-                  type: string
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
         "404":
           description: When movie is not found
           content:
             application/json:
-              type: object
-              properties:
-                error:
-                  type: string
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
         "422":
           description: Error in data validation
           content:
             application/json:
-              type: object
-              properties:
-                error:
-                  type: string
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
         "500":
           description: Internal server error
           content:
             application/json:
-              type: object
-              properties:
-                error:
-                  type: string
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
