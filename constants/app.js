@@ -1,0 +1,1 @@
+exports.MOVIES_PER_PAGE = 5;

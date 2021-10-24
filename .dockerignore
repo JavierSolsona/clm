@@ -1,4 +1,6 @@
 node_modules/
-dist/
+README.md
+Dockerfile
+docker-compose.yml
 package-lock.json
 mongo-data/

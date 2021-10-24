@@ -1,0 +1,23 @@
+{
+  "name": "clm-interview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.23.0",
+    "joi": "^17.4.2",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-helmet": "^6.1.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^10.1.1",
+    "mongoose": "^6.0.12",
+    "pino": "^7.0.3"
+  }
+}

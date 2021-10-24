@@ -1,0 +1,1 @@
+exports.OMDB = 'https://www.omdbapi.com/?apikey=16f5f76';
