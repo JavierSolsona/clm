@@ -18,21 +18,21 @@ const { headerFind, headerFindAll, bodyReplace } = require('../validators/movies
 
 exports.find = async (ctx) => {
   const { error, value } = headerFind.validate(ctx.request.headers[YEAR]);
-  
+
   if (error) {
     ctx.body = { error: ERROR_DATA };
     ctx.status = 422;
     logger.info({ error: ERROR_DATA });
     return ctx;
   }
-  
+
   let movie = await getMovie(ctx);
-  
+
   if (movie.length > 0) {
     ctx.body = { movie: movie };
-    return ctx; 
+    return ctx;
   }
-  
+
   const movieAPI = await getMovieFromAPI(ctx);
 
   if (movieAPI === REQUEST_API_ERROR || movieAPI === MOVIE_NOT_FOUND) {
@@ -41,58 +41,58 @@ exports.find = async (ctx) => {
     logger.info({ error: movieAPI });
     return ctx;
   }
-  
+
   movie = storeMovie(movieAPI);
-  
+
   if (movie === ERROR_CREATING_MOVIE) {
     ctx.body = { error: ERROR_CREATING_MOVIE };
     ctx.status = 500;
     logger.info({ error: ERROR_CREATING_MOVIE });
     return ctx;
   }
-  
+
   ctx.body = { movie: movie };
   return ctx;
 };
 
 exports.findAll = async (ctx) => {
-  const { error, value } = headerFindAll.validate(ctx.request.headers);
-  
+  const { error, value } = headerFindAll.validate(ctx.request.headers[INDEX]);
+
   if (error) {
     ctx.body = { error: ERROR_DATA };
     ctx.status = 422;
     logger.info({ error: ERROR_DATA });
     return ctx;
   }
-  
+
   ctx.body = { movie: await MovieModel.find().limit(MOVIES_PER_PAGE).skip(MOVIES_PER_PAGE * ctx.request.headers[INDEX]) };
   return ctx;
 };
 
 exports.replace = async (ctx) => {
   const { error, value } = bodyReplace.validate(ctx.request.body);
-  
+
   if (error) {
     ctx.body = { error: ERROR_DATA };
     ctx.status = 422;
     logger.info({ error: ERROR_DATA });
     return ctx;
   }
-  
+
   let movie = await MovieModel.findOne({Title: { $regex : new RegExp(ctx.request.body.movie, 'i') }});
-  
+
   if (!movie) {
     ctx.body = { error: MOVIE_NOT_FOUND };
     ctx.status = 404;
     logger.info({ error: MOVIE_NOT_FOUND });
     return ctx;
   }
-  
+
   const { find, replace } = ctx.request.body;
-  
+
   ctx.body = {
     plot: movie.Plot.replace(new RegExp(find, 'ig'), replace)
   };
-  
+
   return ctx;
 };
